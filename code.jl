@@ -4,7 +4,7 @@ using SampledSignals
 using CSV
 using DataFrames
 
-muestras_input=512#potencia de 2 mayor o igual que cuatro
+muestras_input=65536#potencia de 2 mayor o igual que cuatro
 
 #Saca en un array los datos de .wav
 function gen_input(ruta_archivo::AbstractString)
@@ -155,13 +155,17 @@ function entrenar(input_wav::String,target_csv::String)
     canales, frecuencia_muestreo, tasa_bits_codificacion,tamano = obtener_info_wav(input_wav)
     input = gen_input(input_wav)
     input=convertir_array(input, muestras_input)
-    println(size(input))
-    
+    #println(input_wav)
+    #println(size(input))
+    #for i in 1:size(input,2)
+    #    println(size(input[:,i]))
+    #    crear_wav(input[:,i],44100,"/home/pajon/Escritorio/Programacion/3º_2c/AA/Practica/example/"*string(i)*".wav")
+    #end
     target=gen_target(target_csv,size(input,2),muestras_input)
-    println(size(target))
+    println(target)
     println()
     #red 
 end
 
-
-procesar_archivos("/home/pajon/Escritorio/Programacion/3º_2c/AA/Practica/train_data","/home/pajon/Escritorio/Programacion/3º_2c/AA/Practica/train_labels")
+entrenar("/home/pajon/Escritorio/Programacion/3º_2c/AA/Practica/train_data/01.wav","/home/pajon/Escritorio/Programacion/3º_2c/AA/Practica/train_labels/01.csv")    
+#procesar_archivos("/home/pajon/Escritorio/Programacion/3º_2c/AA/Practica/train_data","/home/pajon/Escritorio/Programacion/3º_2c/AA/Practica/train_labels")
